@@ -1,0 +1,24 @@
+
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "MovementShooter/Animation/Notifies/AnimNotify_ShotgunShellReload.h"
+
+#include "MovementShooter/Interface/CombatInterface.h"
+
+void UAnimNotify_ShotgunShellReload::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
+{
+	Super::Notify(MeshComp, Animation, EventReference);
+
+	if (!MeshComp) return;
+
+	AActor* Owner = MeshComp->GetOwner();
+
+	if (ICombatInterface* Combat = Cast<ICombatInterface>(Owner))
+	{
+		ICombatInterface::Execute_OnShotgunShellReload(Owner);
+	}
+	
+}
+
+
